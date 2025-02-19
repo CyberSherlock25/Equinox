@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login Page | EQUINOX</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+
+<body>
+  <div class="container">
+    <div class="title">Login to Equinox Gym</div>
+    <form id="contactForm">
+      <div class="inputBox">
+        <label for="emailid" class="lab">Email:</label>
+        <input type="email" id="emailid" placeholder="Your Email....." required />
+      </div>
+
+      <div class="inputBox">
+        <label for="password" class="lab">Password:</label>
+        <input type="password" id="password" name="password" placeholder="Password" required />
+      </div>
+
+      <div class="inputBox">
+        <button type="submit">Submit</button>
+      </div>
+      <div class="inputBox">
+        <p>Do not have an account? <a href="D:\MainProject\GYM\GYM\LoginPage\singup.html">Create new</a></p>
+      </div>
+    </form>
+  </div>
+
+  <!-- Modal Structure -->
+  <div id="thankYouModal" class="modal">
+    <div class="modal-content">
+      <p>Thank you for joining EQUINOX!</p>
+      <p>
+        <a href="/payment.html" id="closeModal" class="button">Close</a>
+      </p>
+    </div>
+  </div>
+
+  <!-- Firebase SDK -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
+  <!-- Your additional scripts (if any) -->
+  <script src="./mail.js"></script>
+
+  <script>
+    // Your Firebase configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyBq_PyPgxIiVeeDfpbbzDhmp_deIf9uAe4",
+      authDomain: "equinox-gym.firebaseapp.com",
+      databaseURL: "https://equinox-gym-default-rtdb.firebaseio.com",
+      projectId: "equinox-gym",
+      storageBucket: "equinox-gym.firebasestorage.app",
+      messagingSenderId: "415549063164",
+      appId: "1:415549063164:web:d7451b5b810a1583db3c79",
+      measurementId: "G-YXN3BJ2KM8"
+    };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+
+    // Reference Firebase Authentication
+    var auth = firebase.auth();
+
+    // Add event listener to the form for authentication
+    document.getElementById("contactForm").addEventListener("submit", function (event) {
+      event.preventDefault(); // Prevent the default form submission
+
+      var email = document.getElementById("emailid").value;
+      var password = document.getElementById("password").value;
+
+      // Authenticate the user using Firebase Authentication (Login)
+      auth.signInWithEmailAndPassword(email, password)
+        .then(function (userCredential) {
+          // User logged in successfully
+          var user = userCredential.user;
+          console.log("User logged in:", user);
+
+          // Show the modal upon successful login
+          document.getElementById("thankYouModal").style.display = "flex";
+        })
+        .catch(function (error) {
+          // Handle errors here
+          var errorMessage = error.message;
+          console.error("Error during login:", errorMessage);
+          alert(errorMessage);
+        });
+    });
+
+    // Optional: If you want to hide the modal when clicking the close button
+    document.getElementById("closeModal").addEventListener("click", function () {
+      document.getElementById("thankYouModal").style.display = "none";
+    });
+  </script>
+
+  <style>
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7); /* Darker background */
+      justify-content: center;
+      align-items: center;
+      z-index: 1000; /* Ensure it is above other elements */
+    }
+
+    .modal-content {
+      background: #fff;
+      padding: 30px;
+      border-radius: 15px; /* More rounded corners */
+      text-align: center;
+      box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.4); /* Stronger shadow */
+      max-width: 500px; /* Slightly wider */
+      width: 90%;
+      animation: fadeIn 0.5s ease-in-out; /* Fade-in animation */
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    #closeModal {
+      margin-top: 1rem; /* Increased margin for more space */
+      padding: 12px 25px;
+      background: #28a745; /* Green background */
+      color: white;
+      border: none;
+      border-radius: 5px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.3s ease; /* Smooth transition */
+    }
+
+    #closeModal:hover {
+      background: #218838; /* Darker green on hover */
+    }
+  </style>
+</body>
+
+</html>

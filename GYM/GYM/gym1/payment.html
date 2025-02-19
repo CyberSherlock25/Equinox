@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equinox Gym Payment Gateway</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #000;
+            color: #fff;
+        }
+
+        header {
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(to right, #ff8c00, #000);
+        }
+
+        header h1 {
+            color: #fff;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #1a1a1a;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(255, 140, 0, 0.5);
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        label {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input, select, button {
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ff8c00;
+            border-radius: 5px;
+            background-color: #333;
+            color: #fff;
+        }
+
+        input:focus, select:focus {
+            border-color: #ffa500;
+            outline: none;
+        }
+
+        button {
+            background-color: #ff8c00;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #ffa500;
+        }
+
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #1a1a1a;
+            color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(255, 140, 0, 0.8);
+            display: none;
+            text-align: center;
+        }
+
+        .popup button {
+            margin-top: 20px;
+        }
+
+        .navigation {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .navigation button {
+            padding: 10px 20px;
+            background-color: #ff8c00;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .navigation button:hover {
+            background-color: #ffa500;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Equinox Gym Payment Gateway</h1>
+</header>
+
+<div class="container">
+    <form id="paymentForm">
+        <label for="fullName">Full Name</label>
+        <input type="text" id="fullName" name="fullName" placeholder="Enter your full name" required pattern="[A-Za-z ]{3,}" title="Only letters allowed">
+
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+
+        <label for="phone">Phone Number</label>
+        <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required pattern="\d{10}" title="Enter a valid 10-digit phone number">
+
+        <label for="plan">Choose a Plan</label>
+        <select id="plan" name="plan" required>
+            <option value="">Select Plan</option>
+            <option value="basic">Basic - $50/month</option>
+            <option value="premium">Premium - $80/month</option>
+            <option value="elite">Elite - $100/month</option>
+        </select>
+
+        <label for="cardNumber">Card Number</label>
+        <input type="text" id="cardNumber" name="cardNumber" placeholder="Enter your card number" required pattern="\d{16}" title="Enter a valid 16-digit card number">
+
+        <label for="expiry">Expiry Date</label>
+        <input type="month" id="expiry" name="expiry" required>
+
+        <label for="cvv">CVV</label>
+        <input type="text" id="cvv" name="cvv" placeholder="Enter CVV" required pattern="\d{3}" title="Enter a valid 3-digit CVV">
+
+        <button type="submit">Pay Now</button>
+    </form>
+
+    <div class="navigation">
+        <button onclick="navigateToHome()">Go to Home</button>
+    </div>
+</div>
+
+<div class="popup" id="popup">
+    <h2>Payment Successful!</h2>
+    <p>Thank you for your payment. Your membership at Equinox Gym is now active.</p>
+    <button onclick="closePopup()">Close</button>
+</div>
+
+<script>
+    const paymentForm = document.getElementById('paymentForm');
+    const popup = document.getElementById('popup');
+
+    paymentForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        popup.style.display = 'block';
+    });
+
+    function closePopup() {
+        popup.style.display = 'none';
+        paymentForm.reset();
+    }
+
+    function navigateToHome() {
+        window.location.href = 'index.html'; // Replace with the actual path to your home page.
+    }
+</script>
+
+</body>
+</html>

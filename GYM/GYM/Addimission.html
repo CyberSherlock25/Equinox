@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gym Admission Form</title>
+  
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        .form-container {
+            background: #fff;
+            max-width: 500px;
+            margin: 50px auto;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        .form-container h3 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        .form-group input, 
+        .form-group select, 
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .form-group textarea {
+            resize: none;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            color: #fff;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        .btn-submit {
+            background-color: #ff6600;
+            margin-right: 10px;
+        }
+        .btn-home {
+            background-color: #007bff;
+        }
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 9998;
+        }
+        .popup-box {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #fff;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            z-index: 9999;
+            border-radius: 8px;
+        }
+        .popup-box h3 {
+            margin-bottom: 10px;
+        }
+        .popup-box button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: #ff6600;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Admission Form -->
+<div class="form-container">
+    <h3>Gym Admission Form</h3>
+    <form id="admission" onsubmit="return handleFormSubmit();">
+        <div class="form-group">
+            <label for="name">Full Name*</label>
+            <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email Address*</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+        </div>
+        <div class="form-group">
+            <label for="phone">Phone Number*</label>
+            <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" required>
+        </div>
+        <div class="form-group">
+            <label for="program">Select Program*</label>
+            <select id="program" name="program" required>
+                <option value="" disabled selected>Select your program</option>
+                <option value="Basic Fitness">Basic Fitness</option>
+                <option value="Advanced Training">Advanced Training</option>
+                <option value="Yoga Classes">Yoga Classes</option>
+                <option value="Bodybuilding">Bodybuilding</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="message">Additional Information</label>
+            <textarea id="message" name="message" rows="4" placeholder="Tell us about your goals or preferences"></textarea>
+        </div>
+        <div style="text-align: center; margin-top: 20px;">
+            <button type="submit" a href="gym1/index.html" class="btn btn-submit">Submit Form</button>
+            <a href="gym1/index.html" class="btn btn-home">Back to Home</a>
+        </div>
+    </form>
+</div>
+
+<!-- Popup Alert -->
+<div id="popup-overlay" class="popup-overlay"></div>
+<div id="popup-box" class="popup-box">
+    <h3>Success!</h3>
+    <p>Thank you for joining EQUINOX! Your form has been submitted successfully.</p>
+    <button onclick="closePopup(); window.location.href='gym1/index.html';">OK</button>
+</div>
+
+<script>
+    function handleFormSubmit() {
+        document.getElementById('popup-box').style.display = 'block';
+        document.getElementById('popup-overlay').style.display = 'block';
+        saveFormDataToFirebase(); // Call the function to save form data
+        return false; // Prevent form submission
+    }
+
+    function closePopup() {
+        document.getElementById('popup-box').style.display = 'none';
+        document.getElementById('popup-overlay').style.display = 'none';
+    }
+
+    // Firebase SDK import statements and configuration (firebase-app.js and firebase-database.js)
+</script>
+
+<!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+
+
+<!-- Add.js Script -->
+<script src="add.js"></script>
+
+</body>
+</html>
